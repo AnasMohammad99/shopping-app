@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Form, Input, InputNumber, Button, message, Upload } from "antd";
+import { Form, Input, InputNumber, Button, message, Upload, Spin } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { getProduct, updateProduct } from "../store/slices/productSlice";
@@ -14,6 +14,7 @@ const EditProduct: React.FC = () => {
   const dispatch = useAppDispatch();
   const { product } = useAppSelector((state) => state.products);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const loading = useAppSelector((state) => state.products.loading);
 
   useEffect(() => {
     if (id) {
@@ -84,71 +85,73 @@ const EditProduct: React.FC = () => {
   }
 
   return (
-    <div style={{ maxWidth: 600, margin: "0 auto", padding: "24px" }}>
-      <h1>Edit Product</h1>
-      <Form
-        initialValues={{
-          name: product.name,
-          price: product.price,
-          weight: product.weight,
-          quantity: product.quantity,
-        }}
-        onFinish={handleSubmit}
-        layout="vertical"
-      >
-        <Form.Item
-          name="name"
-          label="Name"
-          rules={[
-            { required: true, message: "Please input the product name!" },
-          ]}
+    <Spin spinning={loading} tip="Saving...">
+      <div style={{ maxWidth: 600, margin: "0 auto", padding: "24px" }}>
+        <h1>Edit Product</h1>
+        <Form
+          initialValues={{
+            name: product.name,
+            price: product.price,
+            weight: product.weight,
+            quantity: product.quantity,
+          }}
+          onFinish={handleSubmit}
+          layout="vertical"
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="price"
-          label="Price"
-          rules={[{ required: true, message: "Please input the price!" }]}
-        >
-          <InputNumber min={0} step={0.01} style={{ width: "100%" }} />
-        </Form.Item>
-
-        <Form.Item
-          name="weight"
-          label="Weight"
-          rules={[{ required: true, message: "Please input the weight!" }]}
-        >
-          <InputNumber min={0} step={0.01} style={{ width: "100%" }} />
-        </Form.Item>
-
-        <Form.Item
-          name="quantity"
-          label="Quantity"
-          rules={[{ required: true, message: "Please input the quantity!" }]}
-        >
-          <InputNumber min={0} style={{ width: "100%" }} />
-        </Form.Item>
-
-        <Form.Item label="Picture">
-          <Upload
-            listType="picture"
-            maxCount={1}
-            fileList={fileList}
-            onChange={({ fileList }) => setFileList(fileList)}
-            beforeUpload={() => false}
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[
+              { required: true, message: "Please input the product name!" },
+            ]}
           >
-            <Button icon={<UploadOutlined />}>Upload Picture</Button>
-          </Upload>
-        </Form.Item>
+            <Input />
+          </Form.Item>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Update Product
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
+          <Form.Item
+            name="price"
+            label="Price"
+            rules={[{ required: true, message: "Please input the price!" }]}
+          >
+            <InputNumber min={0} step={0.01} style={{ width: "100%" }} />
+          </Form.Item>
+
+          <Form.Item
+            name="weight"
+            label="Weight"
+            rules={[{ required: true, message: "Please input the weight!" }]}
+          >
+            <InputNumber min={0} step={0.01} style={{ width: "100%" }} />
+          </Form.Item>
+
+          <Form.Item
+            name="quantity"
+            label="Quantity"
+            rules={[{ required: true, message: "Please input the quantity!" }]}
+          >
+            <InputNumber min={0} style={{ width: "100%" }} />
+          </Form.Item>
+
+          <Form.Item label="Picture">
+            <Upload
+              listType="picture"
+              maxCount={1}
+              fileList={fileList}
+              onChange={({ fileList }) => setFileList(fileList)}
+              beforeUpload={() => false}
+            >
+              <Button icon={<UploadOutlined />}>Upload Picture</Button>
+            </Upload>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Update Product
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </Spin>
   );
 };
 

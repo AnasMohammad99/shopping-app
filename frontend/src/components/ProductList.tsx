@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Button, Input, message, Row, Col, Modal } from "antd";
+import { Card, Button, Input, message, Row, Col, Modal, Spin } from "antd";
 import {
   PlusOutlined,
   ShoppingCartOutlined,
@@ -89,7 +89,7 @@ const ProductList = () => {
   if (loading) {
     return (
       <div style={{ padding: "24px", textAlign: "center" }}>
-        Loading products...
+        <Spin size="large" tip="Loading..." />
       </div>
     );
   }
