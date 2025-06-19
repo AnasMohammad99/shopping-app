@@ -96,4 +96,13 @@ The frontend integrates with the backend API endpoints:
 
 ## Styling
 
-The application uses Ant Design components and custom CSS for styling. The design is responsive and follows modern UI/UX practices.
+The application uses Ant Design components and custom CSS for styling. The design is responsive.
+
+##Screenshots
+![image](https://github.com/user-attachments/assets/4d411d9f-67df-4009-9a2a-c8f5fc046d72)
+![image](https://github.com/user-attachments/assets/4209b639-37af-4ee5-95b2-bd6c98b0b82c)
+![image](https://github.com/user-attachments/assets/15c1a21c-87ac-4e94-b446-50adf0731735)
+![image](https://github.com/user-attachments/assets/0e3558de-bcc1-40de-bedb-075d3c7c03be)
+![image](https://github.com/user-attachments/assets/afdca397-e819-4a0f-8047-41cb26cfb52c)
+![image](https://github.com/user-attachments/assets/e7da5c58-ba65-4435-b170-b99023bf18da)
+
