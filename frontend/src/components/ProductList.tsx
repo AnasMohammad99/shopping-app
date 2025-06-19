@@ -6,9 +6,14 @@ import {
   PlusOutlined,
   ShoppingCartOutlined,
   DeleteOutlined,
+  MinusOutlined,
 } from "@ant-design/icons";
 import { getProducts, deleteProduct } from "../store/slices/productSlice";
-import { addToCart, removeFromCart } from "../store/slices/cartSlice";
+import {
+  addToCart,
+  decreaseQuantity,
+  removeFromCart,
+} from "../store/slices/cartSlice";
 import type { RootState, AppDispatch } from "../store/store";
 import type { Product } from "../types";
 
@@ -42,6 +47,11 @@ const ProductList = () => {
     }
     dispatch(addToCart(product));
     message.success("Added to cart!");
+  };
+
+  const handleDecreaseQuantity = (id: number) => {
+    dispatch(decreaseQuantity(id));
+    message.success("removed to cart!");
   };
 
   const handleSearch = (value: string) => {
@@ -143,15 +153,22 @@ const ProductList = () => {
               >
                 <Button
                   type="primary"
-                  icon={<ShoppingCartOutlined />}
+                  icon={<PlusOutlined />}
                   onClick={(e) => {
                     e.stopPropagation();
                     handleAddToCart(product);
                   }}
                   disabled={product.quantity === 0}
-                >
-                  Add to Cart
-                </Button>
+                />
+                <Button
+                  type="primary"
+                  icon={<MinusOutlined />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDecreaseQuantity(product.id);
+                  }}
+                  disabled={product.quantity === 0}
+                />
                 <Button
                   danger
                   icon={<DeleteOutlined />}
